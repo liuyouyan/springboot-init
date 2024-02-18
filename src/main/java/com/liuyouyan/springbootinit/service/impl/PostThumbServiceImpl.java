@@ -9,7 +9,7 @@ import com.liuyouyan.springbootinit.model.entity.PostThumb;
 import com.liuyouyan.springbootinit.model.entity.User;
 import com.liuyouyan.springbootinit.service.PostService;
 import com.liuyouyan.springbootinit.service.PostThumbService;
-import com.liuyouyan.springbootinit.common.enumeration.ErrorCodeEnum;
+import com.liuyouyan.springbootinit.common.exception.ErrorCode;
 
 import javax.annotation.Resource;
 import org.springframework.aop.framework.AopContext;
@@ -41,7 +41,7 @@ public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb
         // 判断实体是否存在，根据类别获取实体
         Post post = postService.getById(postId);
         if (post == null) {
-            throw new BusinessException(ErrorCodeEnum.NOT_FOUND_ERROR);
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
         // 是否已点赞
         long userId = loginUser.getId();
@@ -81,7 +81,7 @@ public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb
                         .update();
                 return result ? -1 : 0;
             } else {
-                throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
+                throw new BusinessException(ErrorCode.SYSTEM_ERROR);
             }
         } else {
             // 未点赞
@@ -94,7 +94,7 @@ public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb
                         .update();
                 return result ? 1 : 0;
             } else {
-                throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
+                throw new BusinessException(ErrorCode.SYSTEM_ERROR);
             }
         }
     }

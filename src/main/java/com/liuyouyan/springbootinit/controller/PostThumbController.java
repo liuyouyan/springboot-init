@@ -5,7 +5,7 @@ import com.liuyouyan.springbootinit.model.entity.User;
 import com.liuyouyan.springbootinit.service.PostThumbService;
 import com.liuyouyan.springbootinit.service.UserService;
 import com.liuyouyan.springbootinit.common.result.BaseResponse;
-import com.liuyouyan.springbootinit.common.enumeration.ErrorCodeEnum;
+import com.liuyouyan.springbootinit.common.exception.ErrorCode;
 import com.liuyouyan.springbootinit.common.result.ResultUtils;
 import com.liuyouyan.springbootinit.model.dto.postthumb.PostThumbAddRequest;
 
@@ -45,7 +45,7 @@ public class PostThumbController {
     public BaseResponse<Integer> doThumb(@RequestBody PostThumbAddRequest postThumbAddRequest,
             HttpServletRequest request) {
         if (postThumbAddRequest == null || postThumbAddRequest.getPostId() <= 0) {
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR);
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         // 登录才能点赞
         final User loginUser = userService.getLoginUser(request);
